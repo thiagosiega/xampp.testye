@@ -13,6 +13,9 @@ if (is_numeric($erro)){
     elseif ($erro == 3){
         $messagem = "Erro: resposta inesperada do servidor";
     }
+    elseif ($erro == 4){
+        $messagem = "Erro ao receber dados do formulário";
+    }
     else{
         $messagem = "Erro desconhecido,Contacte o administrador do sistema";
     }
