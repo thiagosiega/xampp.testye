@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <style>
+        body{
+            background-image: url("img/Backgraund1.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box{
+            margin-top: 100px;
+            width: 400px;
+            height: auto;
+            background-color: rgba(43, 149, 206, 0.37);
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(14, 47, 42, 0.72);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .box h1{
+            font-size: 30px;
+            color: #333;
+        }
+        .box form{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .box form input{
+            width: 300px;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 0 10px;
+            font-size: 16px;
+        }
+        .box form input[type=submit]{
+            width: 100px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 0 10px;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        .box form input[type=submit]:hover{
+            background-color: #444;
+        }
+        .box form select{
+            width: 300px;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 0 10px;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>Cadastro</h1>
+            <form action="cadastrar.php" method="post">
+                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="sobrenome" placeholder="Sobrenome" required>
+                <input type="email" name="email" placeholder="E-mail" required>
+                <input type="password" name="senha" placeholder="Senha" required>
+                <select name="sexo" required>
+                    <option value="">Selecione o sexo</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                </select>
+                <input type="Date" name="data" placeholder="Data de nascimento" required>
+                <input type="submit" value="Cadastrar">
+                <a href="login.php">Já tem cadastro? Faça o login</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
