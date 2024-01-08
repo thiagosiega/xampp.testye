@@ -1,46 +1,51 @@
 <?php
 
-// Path: cadastrar.php
-
 include_once 'Server/Server.php';
 
 if (isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['senha'])) {
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
+    
 
     try {
-        if ($conexao) {
-            $sql = "SELECT * FROM usuarios WHERE email = '$email'";
-            $result = mysqli_query($conexao, $sql);
-            $row = mysqli_num_rows($result);
-            if ($row > 0) {
-                echo "<script>alert('Email já cadastrado!')</script>";
+        // Verifica se a conexão com o banco de dados foi estabelecida corretamente
+        if (!$conexao) {
+            throw new Exception("Acesso ao servidor negado: " . mysqli_connect_error());
+        }
+
+        // Evita SQL Injection usando instruções preparadas
+        $sql = "SELECT * FROM usuarios WHERE email = ?";
+        $stmt = mysqli_prepare($conexao, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+            echo "<script>alert('Email já cadastrado!')</script>";
+            echo "<script>window.location.href = 'index.php'</script>";
+        } else {
+            // Inserção segura usando instruções preparadas
+            $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
+            $stmt = mysqli_prepare($conexao, $sql);
+            mysqli_stmt_bind_param($stmt, "sss", $nome, $email, $senha);
+            $result = mysqli_stmt_execute($stmt);
+
+            if ($result) {
+                echo "<script>alert('Usuário cadastrado com sucesso!')</script>";
                 echo "<script>window.location.href = 'index.php'</script>";
             } else {
-                $sql = "INSERT INTO usuarios (nome, email, senha) VALUES ('$nome', '$email', '$senha')";
-                $result = mysqli_query($conexao, $sql);
-                if ($result) {
-                    echo "<script>alert('Usuário cadastrado com sucesso!')</script>";
-                    echo "<script>window.location.href = 'index.php'</script>";
-                } else {
-                    $message_error = "Erro ao cadastrar usuário: " . mysqli_error($conexao);
-                    header("Location: Server/Erro.php?erro=1");
-                    exit(); // Encerrar a execução do script após o redirecionamento
-                }
+                $erro = 4;
+                header("Location: Server/Codigo_erro.php?erro=$erro");
+                exit();
             }
-        } else {
-            $message_error = "Acesso ao servidor negado: " . mysqli_connect_error();
-            header("Location: Server/Erro.php?erro=2");
-            exit(); // Encerrar a execução do script após o redirecionamento
         }
     } catch (Exception $e) {
-        $message_error = "Erro de conexão com o banco de dados: " . $e->getMessage();
-        header("Location: Server/Erro.php?erro=3");
-        exit(); // Encerrar a execução do script após o redirecionamento
+        $erro = 4;
+        header("Location: Server/Codigo_erro.php?erro=$erro");
+        exit();
     } finally {
         mysqli_close($conexao);
     }
 }
-
 ?>

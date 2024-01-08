@@ -1,0 +1,16 @@
+body{
+    background-color: #f2f2f2;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+.box{
+    background-color: #1d9240;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(40, 9, 126, 0.1);
+    margin: 5% auto 0;
+    max-width: 500px;
+    padding: 30px;
+}

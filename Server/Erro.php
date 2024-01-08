@@ -2,18 +2,16 @@
 
 // Path: Server/Erro.php
 
-// Verificar se o parâmetro "erro" foi definido
-$erro = isset($_GET['erro']) ? $_GET['erro'] : null;
+$messagem = isset($_GET['erro']) ? $_GET['erro'] : 'Erro desconhecido';
 
-// Definir uma mensagem padrão para erros desconhecidos
-$message = "Ocorreu um erro desconhecido";
-
-// Tratar erros conhecidos
-if ($erro == 1) {
-    $message = "Erro ao conectar ao banco de dados";
-} else if ($erro == 2) {
-    $message = "Servidor não está respondendo";
+//verifica se messagem é um texto
+if (is_string($messagem)) {
+    $message = $messagem;
+} else {
+    $message = 'Erro desconhecido,Contacte o administrador do sistema';
 }
+
+$titulo = 'Erro';
 
 ?>
 
@@ -23,9 +21,13 @@ if ($erro == 1) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erro</title>
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
-    <h1>Erro</h1>
-    <p><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></p>
+    <div class="box">
+        <h1><?php echo $titulo; ?></h1>
+        <p><?php echo $message; ?></p>
+        <a href="index.php">Voltar</a>
+    </div>
 </body>
 </html>
