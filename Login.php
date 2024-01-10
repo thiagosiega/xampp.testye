@@ -1,25 +1,32 @@
 <?php
 
-include_once 'Server/Server.php';
+include_once("Server/Server.php");
 
-$Email = $_POST['Email'];
-$Senha = $_POST['Senha'];
-$Senha = hash('sha512', $Senha);
+$Email = $_POST['email'];
+$Senha = $_POST['senha'];
 
-if ($conexao) {
-    $sql = "SELECT * FROM `users` WHERE `Email` = '$Email' AND `Senha` = '$Senha'";
-    $resultado = mysqli_query($conexao, $sql);
-    if (mysqli_num_rows($resultado) > 0){
-        echo "Logado com sucesso!";        
-    }else{
-        echo "<script>alert('Email ou senha incorretos!');window.location.href='index.html';</script>";
+// Verificar se o usuário existe
+$verificar = mysqli_prepare($conexao, "SELECT Senha FROM users WHERE email = ?");
+mysqli_stmt_bind_param($verificar, "s", $Email);
+mysqli_stmt_execute($verificar);
+mysqli_stmt_store_result($verificar);
+
+// Se o usuário existir
+if (mysqli_stmt_num_rows($verificar) > 0) {
+    // Recuperar o hash da senha do banco de dados
+    mysqli_stmt_bind_result($verificar, $Senha_hash);
+    mysqli_stmt_fetch($verificar);
+
+    // Verificar se a senha está correta
+    if (password_verify($Senha, $Senha_hash)) {
+        echo "Login bem-sucedido!";
+    } else {
+        echo "Senha incorreta!";
     }
-    
-}else{
-    $erro = 2;
-    header("Location: Erros/Codigo_erro.php?erro=$erro");
-    exit();
+} else {
+    echo "Email incorreto!";
 }
 
-
+// Fechar a declaração preparada
+mysqli_stmt_close($verificar);
 ?>
