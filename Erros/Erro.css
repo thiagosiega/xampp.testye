@@ -1,0 +1,42 @@
+body{
+    background-image: url(../img/Backgraund1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+.container{
+    width: 100%;
+    height: auto;
+    background-color: rgba(0, 255, 255, 0.274);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+.container .box{
+    width: 400px;
+    height: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    padding: 20px;
+    text-align: center;
+}
+.container .box h1{
+    font-size: 30px;
+    font-weight: 500;
+}
+.container .box p{
+    font-size: 20px;
+    font-weight: 300;
+}
+.container .box a{
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 30px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
