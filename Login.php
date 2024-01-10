@@ -19,12 +19,15 @@ if (mysqli_stmt_num_rows($verificar) > 0) {
 
     // Verificar se a senha está correta
     if (password_verify($Senha, $Senha_hash)) {
-        echo "Login bem-sucedido!";
+        session_start();
+        $_SESSION['email'] = $Email;
+        header("Location: Site/Home.php");
+        exit();
     } else {
-        echo "Senha incorreta!";
+        echo "<script>alert('Senha incorreta!');window.location.href='index.html';</script>";
     }
 } else {
-    echo "Email incorreto!";
+    echo "<script>alert('Usuário não encontrado!');window.location.href='index.html';</script>";
 }
 
 // Fechar a declaração preparada

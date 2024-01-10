@@ -58,3 +58,30 @@ body{
     transition: 0.25s;
     cursor: pointer;
 } 
+.box input[type = "chackbox"]{
+    display: none;
+}
+.box label{
+    position: relative;
+    margin-left: 5px;
+    margin-right: 10px;
+    top: 5px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    border: 5px solid #3498db;
+    cursor: pointer;
+}
+.box label:after{
+    content: "";
+    position: absolute;
+    display: none;
+}
+.box input[type = "checkbox"]:checked + label:after{
+    display: block;
+}
+.box input[type = "submit"]:hover{
+    background: #2ecc71;
+}
