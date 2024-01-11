@@ -26,15 +26,12 @@ if (mysqli_stmt_num_rows($verificar) > 0) {
     mysqli_stmt_store_result($verificar);
     mysqli_stmt_bind_result($verificar, $Nome, $Email, $Senha, $Data, $Sexo, $img);
     mysqli_stmt_fetch($verificar);
-    //adiciona"../" para acessar a pasta onde está a imagem
-    //verifica se o camiho da imagem é padrao
     if($img == "img/Fundo_padrao.jpg"){
         $img = "../".$img;
     }else{
         $img = "img_troca/".$img;
     }
-
-    
+        
 } else {
     $erro = 4;
     header("Location: ../Erros/Codigo_erro.php?$erro");
@@ -48,27 +45,38 @@ if (mysqli_stmt_num_rows($verificar) > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="Style/Home.css">
+    <title>Perfil: <?php echo $Nome; ?></title>
+    <link rel="stylesheet" href="Style/Perfil.css">
 </head>
 <body>
-    <div class="sidebar">
-        <div class="sidebar-user">
-            <div class="logo">
-                <img src="../img/baner_fofo.jpg" alt="Logo">
-            </div>
-            <img src="<?php echo $img; ?>" alt="Foto de perfil">
-            <h1><?php echo $Nome; ?></h1>
-            <a href="Perfil.php">Perfil</a>
-            <a href="#">Configurações</a>
-            <a href="../Server/Logout.php">Sair</a>
+    <div class="infor_perfil">
+        <div class="img_perfil">
+            <img src="<?php echo $img; ?>" alt="Imagem de perfil">
         </div>
-    </div> 
-    <div class="content">
-        <h1>Olá <?php echo $Nome; ?></h1>
-        <p>Data de nascimento: <?php echo $Data; ?></p>
-        <p>Sexo: <?php echo $Sexo; ?></p>
-        <p>Email: <?php echo $Email; ?></p>
+        <div class="infor_site">
+            <h1>Email: </h1>
+            <h2>Nome: </h2>
+            <h2>Data de nacimento: </h2>
+            <h2>Sexo: </h2>
+        </div>
+        <div class="infor_user">
+            <h1><?php echo $Nome; ?></h1>
+            <h2><?php echo $Email; ?></h2>
+            <h2><?php echo $Data; ?></h2>
+            <h2><?php echo $Sexo; ?></h2>
+        </div>
     </div>
+    <div class="troca_img">
+        <form action="img_troca/img_user.php" method="POST" enctype="multipart/form-data">
+            <label for="img">Trocar imagem de perfil</label><br>
+            <input type="file" name="img">
+            <input type="submit" value="Trocar">
+        </form>
+    </div> 
+    <div class="basse_atalho">
+        <a href="Home.php">Home</a>
+        <a href="../Server/Logout.php">Sair</a>
+        <a href="#">Carrinho</a>
+    </div>   
 </body>
 </html>
