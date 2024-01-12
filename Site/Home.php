@@ -151,17 +151,13 @@ include_once("itens/gerente_itens.php");
             justify-content: center;
             flex-direction: column;
         }
-
         .item > img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
     </style>
-
 </head>
-
 <body>
     <div class="siderbar">
         <div class="img">
